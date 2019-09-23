@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User List</title>
+ 
+  <!-- You can download Handlebars at http:// handlebarsjs.com/ and save it as handlebars-v4.0.2.js on your site. Then make it available by adding the following line. -->
+  <script src="handlebars-v4.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- NodeJS is needed to precompile your templates so that your pages load faster. Install it by going to NodeJS.org and then type the following in your terminal to install Handlebars CLI : npm install -g handlebars-->
+  <script src="src/index.js"></script>  
+</head>
+ 
+<body>
+<!-- The information will be placed in this div -->
+  <div id="userList" style="width: 50%;margin: 0 auto;"></div>
+  
+  <script id="user-template" type="text/x-handlebars-template">
+	<h1>User List</h1>
+    <ul>
+        {{#each users}}
+        <li style="display: flex">
+          <div class="left">
+            <img src="{{this.avatar}}"></img>
+          </div>  
+          <div class="right">
+            <h3 class="name" style="margin-top: 0%; margin-left: 5px">{{this.name}}</h3>
+            <p class="tohide" style="margin-left: 5px">
+            CreatedAt: {{this.createdAt}}						
+            Id: {{this.id}} 
+            </p>
+            <button class="btn_show" style="margin-left: 5px">
+                Show More
+            </button>
+          </div>  
+        </li>
+        {{/each}}
+        </ul>
+  </script>
+  
+  <script type="text/javascript">
+ 
+	const userInfo = document.getElementById("user-template").innerHTML;
+	var template = Handlebars.compile(userInfo);
+	
+	//const url = 'https://randomuser.me/api?results=10';
+    const url = 'https://5d7a59779edf7400140aa043.mockapi.io/khojirakhimov';
+    
+	fetch(url)
+	.then(resp => resp.json())
+	.then(function(data){
+		    console.log(data);	
+        let users = data;
+        var userData = template({users: data});
+        console.log(userData);
+        document.getElementById("userList").innerHTML += userData;
+        $('.tohide').hide();
+        $('.btn_show').on('click', function(){
+        $(this).prev('.tohide').show();
+        })
+	})
+	.catch(function(error){
+	  console.log(error);
+	});
+
+	function append(parent, el) {
+	  parent.appendChild(el);
+	}
+	function createNode(element){
+	  return document.createElement(element);
+	}
+  
+  </script>
+ 
+</body>
+</html>
