@@ -4,6 +4,7 @@ var incompleteTasksHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 
 var createNewTaskElement = function(taskString, arr) {
+
   listItem = document.createElement("li");
   checkBox = document.createElement("input");
   label = document.createElement("label");
@@ -18,13 +19,10 @@ var createNewTaskElement = function(taskString, arr) {
   deleteButton.innerText = "Delete";
   deleteButton.className = "delete";
   label.innerText = taskString;
-
-  listItem.appendChild(checkBox);
-  listItem.appendChild(label);
-  listItem.appendChild(editInput);
-  listItem.appendChild(editButton);
-  listItem.appendChild(deleteButton);
-
+  
+  //Another way to accomplish this
+  listItem.innerHTML = checkBox.outerHTML + label.outerHTML + editInput.outerHTML + editButton.outerHTML + deleteButton.outerHTML;
+  
   return listItem;
 };
 
