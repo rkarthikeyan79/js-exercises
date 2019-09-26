@@ -9,18 +9,18 @@
   <script src="handlebars-v4.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <!-- NodeJS is needed to precompile your templates so that your pages load faster. Install it by going to NodeJS.org and then type the following in your terminal to install Handlebars CLI : npm install -g handlebars-->
-  <script src="src/index.js"></script>  
+  <link rel="stylesheet" href="css/site.css" /> 
 </head>
  
 <body>
 <!-- The information will be placed in this div -->
-  <div id="userList" style="width: 50%;margin: 0 auto;"></div>
+  <div id="userList" style="width: 90%;margin: 0 auto;"></div>
   
   <script id="user-template" type="text/x-handlebars-template">
-	<h1>User List</h1>
-    <ul>
+    <h1>User List</h1>
+    <ul class="ul">
         {{#each users}}
-        <li style="display: flex">
+        <li class="li">
           <div class="left">
             <img src="{{this.avatar}}"></img>
           </div>  
@@ -30,7 +30,7 @@
             CreatedAt: {{this.createdAt}}						
             Id: {{this.id}} 
             </p>
-            <button class="btn_show" style="margin-left: 5px">
+            <button class="btn_show button" >
                 Show More
             </button>
           </div>  
@@ -39,39 +39,7 @@
         </ul>
   </script>
   
-  <script type="text/javascript">
- 
-	const userInfo = document.getElementById("user-template").innerHTML;
-	var template = Handlebars.compile(userInfo);
-	
-	//const url = 'https://randomuser.me/api?results=10';
-    const url = 'https://5d7a59779edf7400140aa043.mockapi.io/khojirakhimov';
-    
-	fetch(url)
-	.then(resp => resp.json())
-	.then(function(data){
-		    console.log(data);	
-        let users = data;
-        var userData = template({users: data});
-        console.log(userData);
-        document.getElementById("userList").innerHTML += userData;
-        $('.tohide').hide();
-        $('.btn_show').on('click', function(){
-        $(this).prev('.tohide').show();
-        })
-	})
-	.catch(function(error){
-	  console.log(error);
-	});
+  <script src="src/index.js"></script> 
 
-	function append(parent, el) {
-	  parent.appendChild(el);
-	}
-	function createNode(element){
-	  return document.createElement(element);
-	}
-  
-  </script>
- 
 </body>
 </html>
