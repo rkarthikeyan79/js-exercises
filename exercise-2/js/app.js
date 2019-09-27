@@ -4,32 +4,17 @@ var incompleteTasksHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 
 var createNewTaskElement = function(taskString, arr) {
+  var listItem = document.createElement('li');
+  var domString = '<button class="delete">Delete</button><input type="checkbox"></input><label>' + taskString + '</label><input type="text"></input><button class="edit">Edit</button>';
+  listItem.innerHTML =  domString;
+  listItem.appendChild(listItem.firstChild);
 
-  listItem = document.createElement("li");
-  checkBox = document.createElement("input");
-  label = document.createElement("label");
-  editInput = document.createElement("input");
-  editButton = document.createElement("button");
-  deleteButton = document.createElement("button");
-
-  checkBox.type = "checkbox";
-  editInput.type = "text";
-  editButton.innerText = "Edit";
-  editButton.className = "edit";
-  deleteButton.innerText = "Delete";
-  deleteButton.className = "delete";
-  label.innerText = taskString;
-  
-  //Another way to accomplish this
-  listItem.innerHTML = checkBox.outerHTML + label.outerHTML + editInput.outerHTML + editButton.outerHTML + deleteButton.outerHTML;
-  
   return listItem;
 };
 
 var addTask = function () {
-  if (!taskInput.value)
-  {
-    alert("Task Name must be entered before adding");
+  if (!taskInput.value){
+    alert("The task value cannot be empty");
     return false;
   }
   var listItemName = taskInput.value || "New Item"
@@ -47,11 +32,11 @@ var editTask = function () {
 
   var containsClass = listItem.classList.contains("editMode");
   if (containsClass) {
-      label.innerText = editInput.value
-      button.innerText = "Edit";
+	  label.innerText = editInput.value
+	  button.innerText = "Edit";
   } else {
-      editInput.value = label.innerText
-      button.innerText = "Save";
+	 editInput.value = label.innerText
+	 button.innerText = "Save";
   }
   
   listItem.classList.toggle("editMode");
