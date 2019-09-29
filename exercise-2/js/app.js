@@ -18,6 +18,7 @@ var addTask = function () {
     return false;
   }
   var listItemName = taskInput.value || "New Item"
+  window.localStorage.setItem("newTaskName", listItemName)
   listItem = createNewTaskElement(listItemName)
   incompleteTasksHolder.appendChild(listItem)
   bindTaskEvents(listItem, taskCompleted)
@@ -70,6 +71,13 @@ var bindTaskEvents = function(taskListItem, checkBoxEventHandler, cb) {
 };
 
 addButton.addEventListener("click", addTask);
+
+if (window.localStorage.getItem("newTaskName"))
+{
+  listItem = createNewTaskElement(window.localStorage.getItem("newTaskName"))
+  incompleteTasksHolder.appendChild(listItem)
+  bindTaskEvents(listItem, taskCompleted)
+}
 
 for (var i = 0; i < incompleteTasksHolder.children.length; i++) {
   bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted);
